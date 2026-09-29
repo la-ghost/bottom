@@ -1,5 +1,12 @@
 [
   {
+    "version": "windows-temp-v0.14.9-louks.1",
+    "title": "windows-temp-v0.14.9-louks.1",
+    "aliases": [
+      "stable"
+    ]
+  },
+  {
     "version": "nightly",
     "title": "nightly",
     "aliases": []
@@ -7,9 +14,7 @@
   {
     "version": "0.14.9",
     "title": "0.14.9",
-    "aliases": [
-      "stable"
-    ]
+    "aliases": []
   },
   {
     "version": "0.14.8",
