@@ -8,6 +8,11 @@ cfg_select! {
         pub mod linux;
         pub use self::linux::*;
     }
+    target_os = "windows" => {
+        pub mod sysinfo;
+        pub mod windows;
+        pub use self::windows::*;
+    }
     _ => {
         pub mod sysinfo;
         pub use self::sysinfo::*;

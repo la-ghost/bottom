@@ -13,6 +13,13 @@
 
 </div>
 
+> **Louks Windows temperature fork:** the
+> `codex/windows-libre-temperature` branch adds CPU, GPU, motherboard, memory,
+> and drive temperatures through LibreHardwareMonitor when Windows exposes no
+> sensors to upstream bottom. See
+> [WINDOWS_TEMPERATURES.md](WINDOWS_TEMPERATURES.md) for design, safety, build,
+> and upstream-update instructions.
+
 <div align="center">
   <img src="demos/demo.gif" alt="Quick demo recording showing off bottom's searching, expanding, and process killing."/>
   <p>

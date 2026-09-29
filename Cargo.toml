@@ -1,6 +1,6 @@
 [package]
 name = "bottom"
-version = "0.14.9"
+version = "0.14.9-louks.1"
 repository = "https://github.com/ClementTsang/bottom"
 license = "MIT"
 description = "A customizable cross-platform graphical process/system monitor for the terminal. Supports Linux, macOS, and Windows."
@@ -120,6 +120,7 @@ core-foundation = "0.10.1"
 mach2 = "0.7.0"
 
 [target.'cfg(target_os = "windows")'.dependencies]
+serde_json = "1.0.151"
 windows = { version = "0.62.2", features = [
     "Win32_Foundation",
     "Win32_Security",

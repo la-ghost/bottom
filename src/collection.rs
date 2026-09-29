@@ -25,6 +25,9 @@ pub mod network;
 pub mod processes;
 pub mod temperature;
 
+#[cfg(target_os = "windows")]
+use temperature::WindowsTemperatureSource;
+
 use std::time::{Duration, Instant};
 
 #[cfg(any(not(target_os = "windows"), feature = "gpu"))]
@@ -154,6 +157,8 @@ impl Default for SysinfoSource {
 pub struct DataCollector {
     pub data: Data,
     sys: SysinfoSource,
+    #[cfg(target_os = "windows")]
+    windows_temperature: WindowsTemperatureSource,
     last_collection_time: Instant,
     widgets_to_harvest: UsedWidgets,
     filters: DataFilters,
@@ -218,6 +223,8 @@ impl DataCollector {
         DataCollector {
             data: Data::default(),
             sys: SysinfoSource::default(),
+            #[cfg(target_os = "windows")]
+            windows_temperature: WindowsTemperatureSource::default(),
             #[cfg(target_os = "linux")]
             prev_process_details: IntHashMap::default(),
             #[cfg(target_os = "linux")]
@@ -514,8 +521,18 @@ impl DataCollector {
     #[inline]
     fn update_temps(&mut self) {
         if self.widgets_to_harvest.use_temp || self.widgets_to_harvest.use_temp_graph {
-            #[cfg(not(target_os = "linux"))]
+            #[cfg(all(not(target_os = "linux"), not(target_os = "windows")))]
             if let Ok(data) = temperature::get_temperature_data(
+                &self.sys.temps,
+                &self.filters.temp_filter,
+                &self.filters.temp_graph_filter,
+            ) {
+                self.data.temperature_sensors = data;
+            }
+
+            #[cfg(target_os = "windows")]
+            if let Ok(data) = temperature::get_temperature_data(
+                &mut self.windows_temperature,
                 &self.sys.temps,
                 &self.filters.temp_filter,
                 &self.filters.temp_graph_filter,

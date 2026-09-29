@@ -49,5 +49,10 @@ profile.json.gz
 
 **/venv/
 
+# Windows temperature fork build outputs
+/dist/
+/windows-sensors/bin/
+/windows-sensors/obj/
+
 # Sometimes used for scripts
 .ruff_cache
